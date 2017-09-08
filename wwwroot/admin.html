@@ -22,7 +22,7 @@
 <body style="margin: 0,auto; text-align: center">
 
     <div>
-        1
+        F5 - Refresh & Clear
     </div>
 </body>
 
@@ -46,7 +46,7 @@
     }, 1000);
 
     function draw(users) {
-    
+
         var divs = document.getElementsByTagName("div");
         for (index = 0; index < divs.length; index++) {
             for (var i = 0; i < users.length; i++) {
@@ -56,16 +56,16 @@
                 }
             }
         }
-        for (var i = 0; i < users.length; i++) {
-            debugger;
+        for (var i = users.length - 1; i >= 0; i--) {
+            if (!users[i].imageURL) continue;
             var div = document.createElement("div");
             div.id = "u" + users[i].id;
             var img = document.createElement("img");
             img.src = users[i].imageURL;
             div.appendChild(img);
             var span = document.createElement("span");
-            
-            span.innerHTML = users[i].id + '-' + new String(users[i].time).substr(0,20);
+
+            span.innerHTML = users[i].id + '-' + new String(users[i].time).substr(0, 20);
             span.style.position = "absolute";
             span.style.top = "8px"
             span.style.left = "2px"
