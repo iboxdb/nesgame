@@ -36,6 +36,11 @@
                 var res = this.responseText;
                 user = eval("(" + res + ")");
                 var romPath = "./roms/" + user.gameName;
+                if (user.gameName == "") {
+                    alert("copy NES Roms to ./wwwroot/roms");
+                    user = null;
+                    return;
+                }
                 emulator.load(romPath, true);
             };
 
@@ -54,11 +59,11 @@
                 }
             });
             if (user && user.imageURL) {
-               
+
                 var xhr = new XMLHttpRequest();
                 xhr.open("PUT", "./api/user/" + user.id, true);
-                xhr.setRequestHeader("Content-Type","application/json"); 
-    
+                xhr.setRequestHeader("Content-Type", "application/json");
+
                 xhr.onload = function (e) { };
                 xhr.send(JSON.stringify(user.imageURL));
             }
