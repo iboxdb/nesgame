@@ -17,6 +17,7 @@
         </canvas>
         <p>
             arrows = d-pad, shift = select, <br> return = start, x = B, z = A
+            <br><span id="spanGn"></span>
         </p>
     </main>
 
@@ -40,8 +41,10 @@
                     alert("copy NES Roms to ./wwwroot/roms");
                     user = null;
                     return;
-                }
-                emulator.load(romPath, true);
+                }else{
+                    emulator.load(romPath, true);
+                    spanGn.innerHTML = user.gameName;
+                }                
             };
 
             xhr.send(null);
