@@ -15,10 +15,17 @@ namespace Game.Controllers
         [HttpGet("{last}")]
         public IEnumerable<User> Get(long last)
         {
-            DateTime dt = DateTime.Now;
-            dt = dt.Subtract(TimeSpan.FromSeconds(60 * 1));
             int count = 4 * 5; //4 screens * 5 lines 
-            return App.Auto.Select<User>("from User where Ver>? & Time>? limit 0,?", last, dt, count);
+            if (last == 0)
+            {
+                DateTime dt = DateTime.Now;
+                dt = dt.Subtract(TimeSpan.FromSeconds(60 * 1));
+                return App.Auto.Select<User>("from User where Ver>? & Time>? limit 0,?", last, dt, count);
+            }
+            else
+            {
+                return App.Auto.Select<User>("from User where Ver>?  limit 0,?", last, count);
+            }
         }
     }
 }
