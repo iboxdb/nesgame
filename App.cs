@@ -35,7 +35,11 @@ namespace Game
             Console.WriteLine("Roms: " + DB.ToString(Roms));
             if (Roms.Length == 0)
             {
+                var src = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Copy .nes(s) to ./wwwroot/roms");
+                Console.ForegroundColor = src;
+                Roms = new string[]{""};
             }
             return Auto.GetDatabase();
         }
