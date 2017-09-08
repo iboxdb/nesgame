@@ -1,4 +1,4 @@
-# NesGame WebSite
+# NesGame WebSite -ASP.NET Core 2 Version
 
 
 
