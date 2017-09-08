@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html">
+    <title>ASP.NET Core cross platform with Database</title>
+
+    <style>
+        div {
+            width: 256px;
+            height: 224px;
+            border: 1px solid red;
+            float: left;
+            margin: 2px;
+            text-align: center;
+
+            position: relative;
+        }
+    </style>
+</head>
+
+<body style="margin: 0,auto; text-align: center">
+
+    <div>
+        1
+    </div>
+</body>
+
+<script>
+    var count = 4 * 5;
+
+    var last = 0;
+    setInterval(function () {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "./api/admin/" + last, true);
+        xhr.onload = function (e) {
+            var res = this.responseText;
+            var users = eval("(" + res + ")");
+            if (users.length > 0) {
+                last = users[0].ver;
+                draw(users);
+            }
+        };
+
+        xhr.send(null);
+    }, 1000);
+
+    function draw(users) {
+    
+        var divs = document.getElementsByTagName("div");
+        for (index = 0; index < divs.length; index++) {
+            for (var i = 0; i < users.length; i++) {
+                if (divs[index].id == "u" + users[i].id) {
+                    divs[index].parentNode.removeChild(divs[index]);
+                    break;
+                }
+            }
+        }
+        for (var i = 0; i < users.length; i++) {
+            debugger;
+            var div = document.createElement("div");
+            div.id = "u" + users[i].id;
+            var img = document.createElement("img");
+            img.src = users[i].imageURL;
+            div.appendChild(img);
+            var span = document.createElement("span");
+            
+            span.innerHTML = users[i].id + '-' + new String(users[i].time).substr(0,20);
+            span.style.position = "absolute";
+            span.style.top = "8px"
+            span.style.left = "2px"
+            span.style.color = "#ffffff";
+            span.style.background = "#222222"
+            div.appendChild(span);
+            document.body.insertBefore(div, document.body.firstChild);
+        }
+    }
+
+</script>
+
+</html>
