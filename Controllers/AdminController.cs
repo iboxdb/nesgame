@@ -11,6 +11,11 @@ namespace Game.Controllers
     [Route("api/[controller]")]
     public class AdminController : Controller
     {
+        [HttpGet("Ver")]
+        public long Ver()
+        {
+            return App.Auto.NewId(byte.MaxValue, 0);
+        }
 
         [HttpGet("{last}")]
         public IEnumerable<User> Get(long last)
