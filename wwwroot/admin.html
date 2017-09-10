@@ -22,7 +22,7 @@
 <body style="margin: 0,auto; text-align: center">
 
     <div>
-        F5 - Refresh & Clear
+        F5 - Refresh and Clear
     </div>
 </body>
 
@@ -48,20 +48,31 @@
     function draw(users) {
 
         var divs = document.getElementsByTagName("div");
+        //Update
         for (index = 0; index < divs.length; index++) {
             for (var i = 0; i < users.length; i++) {
+                if ((!users[i])) continue;
                 if (divs[index].id == "u" + users[i].id) {
-                    divs[index].parentNode.removeChild(divs[index]);
+                    var img = divs[index].childNodes[0];
+                    img.src = users[i].imageURL;
+                    img.ver = users[i].ver;
+
+                    var span = divs[index].childNodes[1];
+                    span.innerHTML = users[i].id + '-' + new String(users[i].time).substr(0, 20);
+
+                    users[i] = null;
                     break;
                 }
             }
         }
+        //Create
         for (var i = users.length - 1; i >= 0; i--) {
-            if (!users[i].imageURL) continue;
+            if ((!users[i]) || (!users[i].imageURL)) continue;
             var div = document.createElement("div");
             div.id = "u" + users[i].id;
             var img = document.createElement("img");
             img.src = users[i].imageURL;
+            img.ver = users[i].ver;
             div.appendChild(img);
             var span = document.createElement("span");
 
@@ -72,7 +83,16 @@
             span.style.color = "#ffffff";
             span.style.background = "#222222"
             div.appendChild(span);
+
             document.body.insertBefore(div, document.body.firstChild);
+        }
+
+        //Remove old
+        for (index = 0; index < divs.length; index++) {
+            var img = divs[index].childNodes[0];
+            if (img.ver < (last - 100)) {
+                divs[index].parentNode.removeChild(divs[index]);
+            }
         }
     }
 
