@@ -24,7 +24,8 @@ namespace Game.Controllers
             {
                 DateTime dt = DateTime.Now;
                 dt = dt.Subtract(TimeSpan.FromSeconds(60 * 1));
-                return App.Auto.Select<User>("from User where Ver>? & Time>?", last, dt);
+                return App.Auto.Select<User>("from User where Ver>? limit 0,1000", last)
+                           .Where((u) => u.Time > dt);
             }
             else
             {
